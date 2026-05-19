@@ -1,0 +1,953 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #debc65;
+  --light-pink: #FFF8E7;
+  --light-gold: #FFF8E7;
+  --dark-accent: #000000;
+  --gold: #debc65;
+  --text-dark: #000000;
+  --text-muted: #666666;
+  --border-color: #debc65;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-dark);
+  background-color: #FFF;
+}
+
+/* Animations */
+@keyframes slideLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes slideRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Scrollbar hide */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Infinite scroll container */
+.infinite-scroll-container {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.infinite-scroll-container:hover {
+  animation-play-state: paused;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(222, 188, 101, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(222, 188, 101, 0.6);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Typography */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-poppins {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Hero title */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.15;
+}
+
+/* Section title */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* Button text */
+.btn-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Hide scrollbar for horizontal scroll */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth hover transitions */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+/* Nav link underline animation */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+.nav-link:hover {
+  color: var(--primary);
+}
+
+/* Star rating color */
+.star-gold {
+  color: var(--gold);
+}
+
+/* Price styling */
+.price-current {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.price-old {
+  font-size: 13px;
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Product name */
+.product-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Scroll animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gold accent line animation */
+@keyframes goldLineExpand {
+  from { width: 0; }
+  to { width: 80px; }
+}
+
+.gold-accent-line {
+  width: 0;
+  height: 3px;
+  background: linear-gradient(to right, #debc65, #C9A84C);
+  animation: goldLineExpand 1s ease-out forwards;
+}
+
+/* Word slide up animation */
+@keyframes wordSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.word-animate {
+  display: inline-block;
+  opacity: 0;
+  animation: wordSlideUp 0.6s ease-out forwards;
+}
+
+/* Shimmer sweep animation */
+@keyframes shimmerSweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-btn {
+  background: linear-gradient(90deg, #debc65 0%, #C9A84C 50%, #debc65 100%);
+  background-size: 200% auto;
+}
+
+.shimmer-btn:hover {
+  animation: shimmerSweep 1.5s linear;
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(222, 188, 101, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(222, 188, 101, 0.8);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-content {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* Loading skeleton */
+@keyframes skeletonPulse {
+  0%, 100% {
+    background-color: rgba(222, 188, 101, 0.1);
+  }
+  50% {
+    background-color: rgba(222, 188, 101, 0.05);
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(222, 188, 101, 0.1) 0%, rgba(222, 188, 101, 0.05) 50%, rgba(222, 188, 101, 0.1) 100%);
+  background-size: 200% auto;
+  animation: skeletonPulse 2s ease-in-out infinite;
+}
+
+/* Floating diamond decoration */
+@keyframes floatDiamond {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+.float-diamond {
+  animation: floatDiamond 6s ease-in-out infinite;
+}
+
+/* Card hover lift */
+.card-hover-lift {
+  transition: all 0.3s ease;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Image zoom on hover */
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.image-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* Gallery styles */
+.gallery-tile {
+  border: 1px solid rgba(0,0,0,0.02);
+  box-shadow: 0 6px 20px rgba(16,24,40,0.06);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease, filter 0.35s ease;
+  transform-origin: center;
+}
+
+.gallery-tile:hover .gallery-image {
+  transform: scale(1.06);
+  filter: brightness(0.95);
+}
+
+.gallery-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.gallery-tile:hover .gallery-overlay {
+  opacity: 1;
+}
+
+/* Button slide up on hover */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.btn-slide-up {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.group:hover .btn-slide-up {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Mobile nav active state */
+@media (max-width: 640px) {
+  a.active {
+    @apply text-white bg-primary;
+  }
+}
+
+/* Gallery Masonry Grid - Elegant small cards layout */
+.gallery-masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  grid-auto-rows: minmax(180px, auto);
+  grid-auto-flow: dense;
+  padding: 0;
+}
+
+.gallery-card-container {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 16px;
+  text-decoration: none;
+}
+
+/* Vary card heights for masonry effect */
+.gallery-card-container.gallery-card-sm {
+  grid-row: span 1;
+}
+
+.gallery-card-container.gallery-card-md {
+  grid-row: span 1;
+}
+
+.gallery-card-container.gallery-card-lg {
+  grid-row: span 1.2;
+}
+
+.gallery-card-small {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1.2px solid rgba(222, 188, 101, 0.35);
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 252, 245, 0.05) 0%, rgba(222, 188, 101, 0.02) 100%);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.08),
+    inset 0 0 40px rgba(222, 188, 101, 0.03);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gallery-card-blur-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(222, 188, 101, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gallery-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+  will-change: transform;
+}
+
+.gallery-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 75%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 12px 8px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.gallery-label-text {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  line-height: 1.2;
+}
+
+.gallery-label-underline {
+  height: 1px;
+  width: 16px;
+  background: linear-gradient(90deg, rgba(222, 188, 101, 0.4) 0%, rgba(222, 188, 101, 0.8) 50%, rgba(222, 188, 101, 0.4) 100%);
+  margin-top: 4px;
+  border-radius: 1px;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+/* Hover effects for gallery cards */
+.gallery-card-container:hover .gallery-card-small {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 12px 35px rgba(222, 188, 101, 0.18),
+    0 0 60px rgba(222, 188, 101, 0.12),
+    inset 0 0 40px rgba(222, 188, 101, 0.05);
+  border-color: rgba(222, 188, 101, 0.6);
+}
+
+.gallery-card-container:hover .gallery-card-image {
+  transform: scale(1.08);
+  filter: brightness(0.88);
+}
+
+.gallery-card-container:hover .gallery-card-blur-bg {
+  opacity: 1;
+}
+
+.gallery-card-container:hover .gallery-card-overlay {
+  opacity: 1;
+}
+
+.gallery-card-container:hover .gallery-label-underline {
+  transform: scaleX(1);
+}
+
+/* Responsive gallery grid */
+@media (max-width: 1024px) {
+  .gallery-masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    grid-auto-rows: minmax(160px, auto);
+  }
+  
+  .gallery-card-small {
+    border-radius: 12px;
+    border-width: 1px;
+  }
+  
+  .gallery-label-text {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    grid-auto-rows: minmax(140px, auto);
+  }
+  
+  .gallery-card-container:hover .gallery-card-small {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+/* Live Customer Review Feed */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(222, 188, 101, 0.2), inset 0 0 20px rgba(222, 188, 101, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(222, 188, 101, 0.4), inset 0 0 30px rgba(222, 188, 101, 0.15);
+  }
+}
+
+.live-reviews-container {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.live-reviews-ticker {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.live-reviews-row {
+  display: flex;
+  gap: 16px;
+  animation: scrollLeft 40s linear infinite;
+  will-change: transform;
+}
+
+.live-reviews-row-reverse {
+  animation: scrollRight 35s linear infinite;
+  animation-delay: 2s;
+}
+
+.live-reviews-row:hover,
+.live-reviews-row-reverse:hover {
+  animation-play-state: paused;
+}
+
+.live-review-card {
+  flex-shrink: 0;
+  width: 320px;
+  min-width: 320px;
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 252, 245, 0.08) 0%, rgba(222, 188, 101, 0.04) 100%);
+  border: 1.2px solid rgba(222, 188, 101, 0.25);
+  backdrop-filter: blur(20px) saturate(180%);
+  padding: 16px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(222, 188, 101, 0.1),
+    0 0 20px rgba(222, 188, 101, 0.1);
+  animation: cardSlideIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.live-review-card:nth-child(1),
+.live-review-card:nth-child(2) {
+  animation-delay: 0s;
+}
+
+.live-review-card:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.live-review-card:nth-child(n+4) {
+  animation-delay: calc((var(--index, 0) - 3) * 0.05s);
+}
+
+.live-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 0%, rgba(222, 188, 101, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.live-review-card:hover .live-card-glow {
+  opacity: 1;
+}
+
+.live-review-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(222, 188, 101, 0.5);
+  box-shadow: 
+    0 16px 48px rgba(222, 188, 101, 0.2),
+    inset 0 1px 1px rgba(222, 188, 101, 0.15),
+    0 0 40px rgba(222, 188, 101, 0.2);
+}
+
+.live-card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.live-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.live-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #debc65 0%, #C9A84C 100%);
+  color: black;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(222, 188, 101, 0.3);
+}
+
+.live-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.live-card-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.live-card-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.3px;
+}
+
+.live-verified-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #debc65;
+  background: rgba(222, 188, 101, 0.15);
+  border: 0.5px solid rgba(222, 188, 101, 0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.live-card-location {
+  font-size: 10px;
+  color: rgba(156, 163, 175, 0.9);
+  letter-spacing: 0.2px;
+}
+
+.live-card-time {
+  font-size: 9px;
+  color: rgba(156, 163, 175, 0.7);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.live-card-rating {
+  display: flex;
+  gap: 2px;
+  margin: 4px 0;
+}
+
+.live-star {
+  color: #debc65;
+  font-size: 12px;
+  text-shadow: 0 0 4px rgba(222, 188, 101, 0.3);
+}
+
+.live-card-review {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  margin-top: 4px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+.live-reviews-fade-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.live-reviews-fade-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Responsive live reviews */
+@media (max-width: 1024px) {
+  .live-review-card {
+    width: 280px;
+    min-width: 280px;
+    padding: 14px;
+  }
+  
+  .live-card-review {
+    font-size: 12px;
+  }
+  
+  .live-reviews-row {
+    animation: scrollLeft 35s linear infinite;
+  }
+  
+  .live-reviews-row-reverse {
+    animation: scrollRight 30s linear infinite;
+  }
+}
+
+@media (max-width: 768px) {
+  .live-review-card {
+    width: 240px;
+    min-width: 240px;
+    padding: 12px;
+  }
+  
+  .live-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+  
+  .live-card-name {
+    font-size: 11px;
+  }
+  
+  .live-card-review {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  
+  .live-reviews-row {
+    gap: 12px;
+    animation: scrollLeft 30s linear infinite;
+  }
+  
+  .live-reviews-row-reverse {
+    gap: 12px;
+    animation: scrollRight 25s linear infinite;
+  }
+  
+  .live-reviews-fade-left,
+  .live-reviews-fade-right {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .live-review-card {
+    width: 200px;
+    min-width: 200px;
+    padding: 10px;
+  }
+  
+  .live-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 10px;
+  }
+  
+  .live-card-name {
+    font-size: 10px;
+  }
+  
+  .live-card-review {
+    font-size: 10px;
+  }
+  
+  .live-reviews-row {
+    gap: 10px;
+    animation: scrollLeft 25s linear infinite;
+  }
+  
+  .live-reviews-row-reverse {
+    gap: 10px;
+    animation: scrollRight 20s linear infinite;
+  }
+  
+  .live-reviews-fade-left,
+  .live-reviews-fade-right {
+    width: 60px;
+  }
+}
