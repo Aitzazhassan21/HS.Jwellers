@@ -1,6 +1,19 @@
 // Admin image resolver: ensures image URLs returned by backend load correctly in the admin app.
-const getBaseFrontend = () => import.meta.env.VITE_FRONTEND_URL?.trim() || import.meta.env.VITE_CLIENT_URL?.trim() || null;
-const getBaseApi = () => import.meta.env.VITE_BACKEND_URL?.trim() || null;
+const getBaseFrontend = () => {
+  return (
+    import.meta.env.VITE_FRONTEND_URL?.trim() ||
+    import.meta.env.VITE_CLIENT_URL?.trim() ||
+    (window.location.hostname !== 'localhost' ? 'https://hsjwellers.vercel.app' : null)
+  );
+};
+const getBaseApi = () => {
+  return (
+    import.meta.env.VITE_BACKEND_URL?.trim() ||
+    (window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://hsjewelsapi.vercel.app')
+  );
+};
+
+const isLocalAdmin = () => window.location.hostname === 'localhost';
 
 export const resolveImageUrl = (image) => {
   if (!image) return null;
@@ -8,13 +21,15 @@ export const resolveImageUrl = (image) => {
   if (typeof image === 'string') url = image;
   else if (typeof image === 'object') url = image.url || image.image || image.public_id || null;
   if (!url) return null;
-  // absolute
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    // rewrite localhost backend asset references to frontend origin when available
-    const isAsset = url.includes('/assets/') || url.includes('/uploads/');
-    const isLocalHost = url.includes('localhost') || url.includes('127.0.0.1') || url.includes(':5000');
-    const frontend = getBaseFrontend();
-    if (isAsset && isLocalHost && frontend) {
+
+  const frontend = getBaseFrontend();
+  const api = getBaseApi();
+
+  const isAsset = url.includes('/assets/') || url.includes('/uploads/');
+  const isHttp = url.startsWith('http://') || url.startsWith('https://');
+
+  if (isHttp) {
+    if (isAsset && frontend && !isLocalAdmin()) {
       try {
         const u = new URL(url);
         return `${frontend}${u.pathname}${u.search}`;
@@ -25,11 +40,8 @@ export const resolveImageUrl = (image) => {
     return url;
   }
 
-  // relative path like /assets/... -> prefer frontend origin if set, otherwise backend
   if (url.startsWith('/')) {
-    const frontend = getBaseFrontend();
-    if (frontend) return `${frontend}${url}`;
-    const api = getBaseApi();
+    if (!isLocalAdmin() && frontend) return `${frontend}${url}`;
     if (api) return `${api}${url}`;
     return url;
   }
