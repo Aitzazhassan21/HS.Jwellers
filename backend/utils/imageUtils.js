@@ -15,7 +15,11 @@ export const resolveImageUrl = (img) => {
 
   if (typeof explicitUrl === 'string') {
     if (explicitUrl.startsWith('/')) {
-      // Prefer explicit BACKEND_URL (full origin), then VERCEL_URL, then HOST+PORT
+      // If the path points to frontend assets, prefer frontend origin
+      const frontendUrl = process.env.FRONTEND_URL || process.env.CLIENT_URL || (process.env.FRONTEND_VERCEL_URL ? `https://${process.env.FRONTEND_VERCEL_URL}` : null);
+      if (explicitUrl.startsWith('/assets') && frontendUrl) return `${frontendUrl}${explicitUrl}`;
+
+      // Otherwise prefer BACKEND_URL (full origin), then VERCEL_URL, then HOST+PORT
       const backendUrl = process.env.BACKEND_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
       if (backendUrl) return `${backendUrl}${explicitUrl}`;
 
