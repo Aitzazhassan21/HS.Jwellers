@@ -51,7 +51,7 @@ const AdminDashboard = () => {
     setNewsletterLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/newsletter/admin`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'https://hsjewelsapi.vercel.app'}/api/newsletter/admin`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
   const deleteNewsletterEmail = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/newsletter/admin/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'https://hsjewelsapi.vercel.app'}/api/newsletter/admin/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

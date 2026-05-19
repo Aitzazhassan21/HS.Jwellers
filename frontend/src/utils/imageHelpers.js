@@ -1,7 +1,7 @@
 // Helper functions to get image URLs from products and categories
 // These handle both Cloudinary URLs and local asset paths
 
-const getBaseApiUrl = () => import.meta.env.VITE_API_URL || "http://localhost:5000";
+const getBaseApiUrl = () => import.meta.env.VITE_API_URL || "https://hsjewelsapi.vercel.app";
 
 const resolveUrl = (image) => {
   if (!image) return null;

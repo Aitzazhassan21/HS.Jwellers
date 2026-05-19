@@ -517,7 +517,7 @@ const Home = () => {
 
     setIsSubscribing(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/newsletter`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL || 'https://hsjewelsapi.vercel.app'}/api/newsletter`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
