@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { backendUrl } from '../config';
 import { Save, Lock } from 'lucide-react';
+import { useEffect } from 'react';
 
 const Settings = ({ token }) => {
   const [passwordData, setPasswordData] = useState({
@@ -46,6 +47,24 @@ const Settings = ({ token }) => {
   const handleFormUpdate = (field, value) => {
     setPasswordData((prev) => ({ ...prev, [field]: value }));
   };
+
+  useEffect(() => {
+    const loadPublicSettings = async () => {
+      try {
+        const res = await fetch(`${backendUrl}/api/site-settings/public`);
+        const data = await res.json();
+        if (data?.success && data.settings) {
+          const { primaryColor, secondaryColor, fontFamily } = data.settings;
+          if (primaryColor) document.documentElement.style.setProperty('--primary-color', primaryColor);
+          if (secondaryColor) document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+          if (fontFamily) document.documentElement.style.setProperty('--site-font-family', fontFamily);
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+    loadPublicSettings();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -103,7 +122,10 @@ const Settings = ({ token }) => {
           <button
             onClick={handleChangePassword}
             disabled={passwordSaving || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
-            className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
+            className="flex items-center gap-2 px-8 py-4 text-white font-bold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
+            style={{
+              background: `linear-gradient(90deg, var(--primary-color, #6b21a8), var(--secondary-color, #4f46e5))`,
+            }}
           >
             <Save size={20} /> {passwordSaving ? 'Changing...' : 'Change Password'}
           </button>
