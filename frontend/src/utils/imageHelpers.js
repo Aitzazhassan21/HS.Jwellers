@@ -2,6 +2,7 @@
 // These handle both Cloudinary URLs and local asset paths
 
 const getBaseApiUrl = () => import.meta.env.VITE_API_URL || "https://hsjewelsapi.vercel.app";
+const getBaseFrontendUrl = () => import.meta.env.VITE_FRONTEND_URL?.trim() || window.location.origin || "https://hsjwellers.vercel.app";
 
 const resolveUrl = (image) => {
   if (!image) return null;
@@ -23,7 +24,9 @@ const resolveUrl = (image) => {
   } catch (e) {
     // ignore
   }
+
   if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith('/assets/')) return `${getBaseFrontendUrl()}${url}`;
   if (url.startsWith("/")) return `${getBaseApiUrl()}${url}`;
   return url;
 };
