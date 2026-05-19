@@ -15,6 +15,10 @@ export const resolveImageUrl = (img) => {
 
   if (typeof explicitUrl === 'string') {
     if (explicitUrl.startsWith('/')) {
+      // Prefer explicit BACKEND_URL (full origin), then VERCEL_URL, then HOST+PORT
+      const backendUrl = process.env.BACKEND_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
+      if (backendUrl) return `${backendUrl}${explicitUrl}`;
+
       const port = process.env.PORT || 5000;
       const host = process.env.HOST || 'http://localhost';
       return `${host}:${port}${explicitUrl}`;
