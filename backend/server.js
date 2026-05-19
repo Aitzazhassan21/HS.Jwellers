@@ -31,19 +31,45 @@ connectCloudinary();
 
 // Middleware
 app.use(express.json());
+// CORS: allow local dev and your deployed domains; also permit vercel.app origins
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.CLIENT_URL,
+  process.env.ADMIN_URL,
+  process.env.BACKEND_URL,
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
+  "https://hsjwellers.vercel.app",
+  "https://hsjewels-admin.vercel.app",
+  "https://hsjewelsapi.vercel.app",
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    process.env.CLIENT_URL || "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:5175",
-    "https://hsjwellers.vercel.app",
-    "https://hsjewels-admin.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow non-browser tools
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(new Error('CORS policy: origin not allowed'));
+  },
   credentials: true,
+  optionsSuccessStatus: 200,
 }));
 
 // Serve static files from frontend public assets
-app.use("/assets", express.static(path.join(__dirname, "../frontend/public/assets")));
+// Serve static assets from the frontend public assets folder (if present)
+app.use(
+  "/assets",
+  express.static(path.join(__dirname, "../frontend/public/assets"), {
+    maxAge: "7d",
+    setHeaders: (res, filePath) => {
+      // Ensure CORS headers for static assets as well
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || process.env.CLIENT_URL || '*');
+    },
+  })
+);
 
 // API Routes
 app.use("/api/auth", authRouter);
