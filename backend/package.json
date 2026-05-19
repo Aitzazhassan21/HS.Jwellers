@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node --dns-result-order=ipv4first server.js",
-    "server": "nodemon --exec \"node --dns-result-order=ipv4first server.js\""
+    "server": "nodemon --exec \"node --dns-result-order=ipv4first server.js\"",
+    "build": "echo 'Backend build complete'"
   },
   "author": "",
   "license": "ISC",
