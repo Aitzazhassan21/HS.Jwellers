@@ -15,7 +15,7 @@ const resolveUrl = (image) => {
   }
 
   if (!url) return null;
-  // Rewrite localhost absolute URLs to current origin so deployed frontends don't load localhost
+  // Rewrite backend asset URLs to the frontend origin for live deployments.
   try {
     if (url.startsWith('http://localhost') || url.startsWith('http://127.0.0.1')) {
       const u = new URL(url);
@@ -25,7 +25,18 @@ const resolveUrl = (image) => {
     // ignore
   }
 
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    if (url.includes('/assets/')) {
+      try {
+        const u = new URL(url);
+        return `${getBaseFrontendUrl()}${u.pathname}${u.search}`;
+      } catch (e) {
+        return url;
+      }
+    }
+    return url;
+  }
+
   if (url.startsWith('/assets/')) return `${getBaseFrontendUrl()}${url}`;
   if (url.startsWith("/")) return `${getBaseApiUrl()}${url}`;
   return url;
