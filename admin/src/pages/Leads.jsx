@@ -11,7 +11,7 @@ const Leads = ({ token }) => {
     fetchLeads();
   }, [token]);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL?.trim() || 'https://hsjewelsapi.vercel.app';
 
   const fetchLeads = async () => {
     try {
