@@ -21,6 +21,7 @@ const App = () => {
   );
   const [backendOnline, setBackendOnline] = useState(true);
   const [backendChecking, setBackendChecking] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const checkBackend = async () => {
     try {
@@ -88,9 +89,9 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
-          <AdminSidebar setToken={setToken} />
-          <div className="ml-64">
-            <AdminHeader />
+          <AdminSidebar setToken={setToken} collapsed={sidebarCollapsed} />
+          <div className={sidebarCollapsed ? 'ml-20' : 'ml-64'}>
+            <AdminHeader collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed} />
             <main className="p-8 pt-24">
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />

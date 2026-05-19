@@ -10,7 +10,7 @@ import {
   Gem
 } from 'lucide-react';
 
-const AdminSidebar = ({ setToken }) => {
+const AdminSidebar = ({ setToken, collapsed = false }) => {
   const location = useLocation();
 
   const menuItems = [
@@ -28,17 +28,19 @@ const AdminSidebar = ({ setToken }) => {
   };
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-[#1A1A2E] text-white flex flex-col z-50">
+    <aside className={`fixed left-0 top-0 h-screen ${collapsed ? 'w-20' : 'w-64'} bg-[#1A1A2E] text-white flex flex-col z-50 transition-width duration-200`}>
       {/* Logo */}
       <div className="p-6 border-b border-[#debc65]/20">
         <div className="flex items-center gap-3">
           <div className="bg-gradient-to-br from-[#debc65] to-[#C9A84C] p-2 rounded-lg">
             <Gem size={24} />
           </div>
-          <div>
-            <h1 className="font-bold text-lg">HS Jewels</h1>
-            <p className="text-xs text-slate-400">Admin Panel</p>
-          </div>
+          {!collapsed && (
+            <div>
+              <h1 className="font-bold text-lg">HS Jewels</h1>
+              <p className="text-xs text-slate-400">Admin Panel</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -59,7 +61,7 @@ const AdminSidebar = ({ setToken }) => {
               }`}
             >
               <Icon size={20} />
-              <span className="font-medium">{item.label}</span>
+              <span className={`font-medium ${collapsed ? 'hidden' : ''}`}>{item.label}</span>
               {item.badge > 0 && (
                 <span className="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {item.badge}
@@ -76,10 +78,12 @@ const AdminSidebar = ({ setToken }) => {
           <div className="w-10 h-10 bg-gradient-to-br from-[#debc65] to-[#C9A84C] rounded-full flex items-center justify-center text-[#1A1A2E]">
             <span className="font-bold">A</span>
           </div>
-          <div className="flex-1">
-            <p className="font-medium text-sm">HS Jwells</p>
-            <p className="text-xs text-slate-400">Super Admin</p>
-          </div>
+          {!collapsed && (
+            <div className="flex-1">
+              <p className="font-medium text-sm">HS Jwells</p>
+              <p className="text-xs text-slate-400">Super Admin</p>
+            </div>
+          )}
         </div>
         <button
           onClick={handleLogout}

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Bell, Search, User } from 'lucide-react';
+import { Bell, Search, User, Menu } from 'lucide-react';
 
-const AdminHeader = () => {
+const AdminHeader = ({ collapsed, setCollapsed }) => {
   return (
-    <header className="fixed top-0 left-64 right-0 h-16 bg-[#FFFCF5] border-b border-[#debc65]/20 flex items-center justify-between px-6 z-40">
+    <header className={`fixed top-0 ${collapsed ? 'left-20' : 'left-64'} right-0 h-16 bg-[#FFFCF5] border-b border-[#debc65]/20 flex items-center justify-between px-6 z-40 transition-left duration-200`}>
       <div className="flex items-center gap-4 flex-1">
+        <button onClick={() => setCollapsed(!collapsed)} className="p-2 mr-2 text-sm rounded-lg hover:bg-[#debc65]/10">
+          <Menu size={18} />
+        </button>
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
           <input

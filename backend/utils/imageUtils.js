@@ -41,6 +41,26 @@ export const resolveImageUrl = (img) => {
     }
   }
 
+  // If URL contains a localhost or backend asset origin but points to frontend assets, rewrite to FRONTEND_URL when available
+  if (typeof explicitUrl === 'string' && explicitUrl.startsWith('http')) {
+    const isAsset = explicitUrl.includes('/assets/');
+    const isLocalHost = explicitUrl.includes('localhost') || explicitUrl.includes('127.0.0.1') || explicitUrl.includes(':5000');
+    const frontendUrl = process.env.FRONTEND_URL || process.env.CLIENT_URL || (process.env.FRONTEND_VERCEL_URL ? `https://${process.env.FRONTEND_VERCEL_URL}` : null);
+    if (isAsset && frontendUrl) {
+      try {
+        return explicitUrl.replace(/^https?:\/\/[^/]+/, frontendUrl);
+      } catch (e) {
+        // fallthrough
+      }
+    }
+    // if it's localhost and no FRONTEND_URL, try replacing host with VERCEL_URL if present
+    if (isAsset && !frontendUrl && process.env.VERCEL_URL) {
+      return explicitUrl.replace(/^https?:\/\/[^/]+/, `https://${process.env.VERCEL_URL}`);
+    }
+    // if it is a remote absolute URL already, just return it
+    return explicitUrl;
+  }
+
   return url;
 };
 
