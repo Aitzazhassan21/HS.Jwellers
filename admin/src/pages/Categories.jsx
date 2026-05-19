@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../config";
+import { resolveImageUrl } from "../utils/imageHelpers";
 import { toast } from "react-toastify";
 import { Upload, X, Plus, Trash2, Edit, FolderOpen } from "lucide-react";
 
@@ -186,7 +186,7 @@ const Categories = ({ token }) => {
               <div className="relative h-40 bg-gradient-to-br from-[#FFF8E7] to-[#F4E0A0] overflow-hidden">
                 {category.image?.url ? (
                   <img
-                    src={category.image.url}
+                    src={category.image ? resolveImageUrl(category.image) : null}
                     alt={category.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -260,7 +260,7 @@ const Categories = ({ token }) => {
                 {formData.image?.url && (
                   <div className="mt-3 relative">
                     <img
-                      src={formData.image.url}
+                      src={formData.image ? resolveImageUrl(formData.image) : null}
                       alt="Preview"
                       className="w-full h-32 object-cover rounded-lg"
                     />
@@ -339,10 +339,6 @@ const Categories = ({ token }) => {
       )}
     </div>
   );
-};
-
-Categories.propTypes = {
-  token: PropTypes.string.isRequired,
 };
 
 export default Categories;

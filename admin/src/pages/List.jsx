@@ -3,6 +3,7 @@ import axios from "axios";
 import { backendUrl, currency } from "../config";
 import { toast } from "react-toastify";
 import { Trash2, Package, Star } from "lucide-react";
+import { resolveImageUrl } from "../utils/imageHelpers";
 
 const List = ({ token }) => {
   const [listProducts, setListProducts] = useState([]);
@@ -86,9 +87,9 @@ const List = ({ token }) => {
             >
               {/* Product Image */}
               <div className="relative h-48 bg-gradient-to-br from-[#FFF8E7] to-[#F4E0A0] overflow-hidden">
-                {item.images?.[0]?.url ? (
+                {resolveImageUrl(item.images?.[0]) ? (
                   <img
-                    src={item.images?.[0]?.url}
+                    src={resolveImageUrl(item.images?.[0])}
                     alt={item.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -114,7 +115,7 @@ const List = ({ token }) => {
                     {item.images.map((img) => (
                       <img
                         key={img.public_id || img.url}
-                        src={img.url}
+                        src={resolveImageUrl(img)}
                         alt={item.name}
                         className="w-16 h-16 rounded-xl object-cover border border-slate-200"
                       />
