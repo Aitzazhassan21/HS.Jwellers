@@ -87,10 +87,11 @@ const AdminSidebar = ({ setToken, collapsed = false }) => {
         </div>
         <button
           onClick={handleLogout}
+          aria-label="Logout"
           className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-gray-300 hover:bg-red-500 hover:text-white transition-all duration-200"
         >
           <LogOut size={20} />
-          <span className="font-medium">Logout</span>
+          <span className={`font-medium ${collapsed ? 'hidden' : ''}`}>Logout</span>
         </button>
       </div>
     </aside>

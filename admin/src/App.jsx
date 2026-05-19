@@ -23,6 +23,19 @@ const App = () => {
   const [backendChecking, setBackendChecking] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      setSidebarCollapsed(isMobile);
+    };
+
+    // initialize
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const checkBackend = async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/health`);

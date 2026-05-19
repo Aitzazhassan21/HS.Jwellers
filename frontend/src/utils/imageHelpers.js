@@ -14,6 +14,15 @@ const resolveUrl = (image) => {
   }
 
   if (!url) return null;
+  // Rewrite localhost absolute URLs to current origin so deployed frontends don't load localhost
+  try {
+    if (url.startsWith('http://localhost') || url.startsWith('http://127.0.0.1')) {
+      const u = new URL(url);
+      return `${window.location.origin}${u.pathname}${u.search}`;
+    }
+  } catch (e) {
+    // ignore
+  }
   if (url.startsWith("http://") || url.startsWith("https://")) return url;
   if (url.startsWith("/")) return `${getBaseApiUrl()}${url}`;
   return url;
@@ -30,3 +39,5 @@ export const getCategoryImage = (categoryOrImage) => {
   const url = resolveUrl(image);
   return url || `${getBaseApiUrl()}/placeholder.jpg`;
 };
+
+export const getImageUrl = resolveUrl;

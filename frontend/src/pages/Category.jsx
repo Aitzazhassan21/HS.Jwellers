@@ -7,6 +7,7 @@ import { orderAPI, productAPI } from "../services/api.js";
 import { buildGuestOrderPayload } from "../utils/orderHelpers.js";
 import AddressModal from "../components/AddressModal.jsx";
 import formatPKR from "../utils/formatPKR.js";
+import { getProductImage, getImageUrl } from "../utils/imageHelpers.js";
 
 const Category = () => {
   const { category } = useParams();
@@ -219,9 +220,9 @@ const Category = () => {
                   >
                     <Link to={`/product/${product.slug || product._id}`} className="block overflow-hidden rounded-xl bg-[#FFF8E7]">
                       <div className="h-[220px] w-full overflow-hidden rounded-xl">
-                        {product.images?.[0]?.url ? (
+                        {getProductImage(product) ? (
                           <img
-                            src={product.images[0].url}
+                            src={getProductImage(product)}
                             alt={product.name}
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
@@ -238,7 +239,7 @@ const Category = () => {
                         {product.images.slice(0, 3).map((img) => (
                           <img
                             key={img.public_id || img.url}
-                            src={img.url}
+                            src={getImageUrl(img)}
                             alt={product.name}
                             className="h-12 w-12 rounded-lg object-cover border border-border"
                           />

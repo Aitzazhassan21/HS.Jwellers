@@ -7,7 +7,7 @@ import { orderAPI, productAPI } from "../services/api.js";
 import { buildGuestOrderPayload } from "../utils/orderHelpers.js";
 import AddressModal from "../components/AddressModal.jsx";
 import formatPKR from "../utils/formatPKR.js";
-import { getProductImage } from "../utils/imageHelpers.js";
+import { getProductImage, getImageUrl } from "../utils/imageHelpers.js";
 
 const Product = () => {
   const { productId } = useParams();
@@ -177,16 +177,16 @@ const Product = () => {
             {(product.images || []).map((image) => (
               <button
                 type="button"
-                key={image.public_id || image.url}
-                onClick={() => setActiveImage(image.url)}
+                  key={image.public_id || image.url}
+                  onClick={() => setActiveImage(getImageUrl(image))}
                 className={`overflow-hidden rounded-xl border ${
-                  activeImage === image.url ? "border-[#debc65]" : "border-border"
+                    activeImage === getImageUrl(image) ? "border-[#debc65]" : "border-border"
                 }`}
               >
                 <div className="h-[72px] w-[72px] bg-[#FFF8E7]">
-                  {image.url ? (
-                    <img src={image.url} alt={product.name} className="h-full w-full object-cover" />
-                  ) : (
+                    {getImageUrl(image) ? (
+                      <img src={getImageUrl(image)} alt={product.name} className="h-full w-full object-cover" />
+                    ) : (
                     <div className="flex h-full items-center justify-center text-[10px] text-text-muted">Img</div>
                   )}
                 </div>
