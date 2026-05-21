@@ -101,7 +101,7 @@ const Footer = () => {
           </div>
 
           {/* Row 2: Contact Us | We Accept */}
-          <div className="grid grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 gap-6 mb-8">
             {/* Contact Us */}
             <div>
               <h4 className="text-[16px] font-inter font-semibold mb-4 text-white">
@@ -126,10 +126,10 @@ const Footer = () => {
             {/* We Accept */}
             <div>
               <h4 className="text-[16px] font-inter font-semibold mb-4 text-white">
-                We Accept
+                Delivery & Payment
               </h4>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-2">
+              <div className="grid gap-4">
+                <div className="flex items-center gap-3 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -149,7 +149,24 @@ const Footer = () => {
                     <p className="text-[#debc65]/70 text-xs">Pay when you receive</p>
                   </div>
                 </div>
-           
+                <div className="flex items-center gap-3 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#debc65"
+                    strokeWidth="2"
+                  >
+                    <path d="M3 8l7-5 7 5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" />
+                    <path d="M16 8l-4 3-4-3" />
+                  </svg>
+                  <div>
+                    <p className="text-white text-sm font-medium">Fast Delivery</p>
+                    <p className="text-[#debc65]/70 text-xs">Nationwide shipping available</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -267,8 +284,8 @@ const Footer = () => {
 
             {/* Payment icons */}
             <div className="mt-6">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-2">
+              <div className="grid gap-3">
+                <div className="flex items-center gap-2 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -285,9 +302,10 @@ const Footer = () => {
                   </svg>
                   <div>
                     <p className="text-white text-sm font-medium">Cash on Delivery</p>
+                    <p className="text-[#debc65]/70 text-xs">Pay when you receive</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-2">
+                <div className="flex items-center gap-2 bg-white/5 border border-[#debc65]/20 rounded-xl px-4 py-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -299,7 +317,10 @@ const Footer = () => {
                   >
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
-                 
+                  <div>
+                    <p className="text-white text-sm font-medium">Fast Delivery</p>
+                    <p className="text-[#debc65]/70 text-xs">Delivered across Pakistan</p>
+                  </div>
                 </div>
               </div>
             </div>
