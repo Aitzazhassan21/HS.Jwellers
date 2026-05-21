@@ -255,6 +255,9 @@ const Category = () => {
                       <p className="text-[11px] uppercase tracking-wider text-primary">
                         {product.category?.name || "Jewellery"}
                       </p>
+                      {product.tags?.[0] && (
+                        <p className="italic text-xs text-text-muted mt-1">{product.tags[0]}</p>
+                      )}
                       <Link
                         to={`/product/${product.slug || product._id}`}
                         className="mt-1 line-clamp-2 min-h-[40px] text-sm font-medium text-text-dark"

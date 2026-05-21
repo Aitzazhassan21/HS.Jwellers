@@ -6,6 +6,7 @@ import { Upload, X } from "lucide-react";
 
 const Add = ({ token }) => {
   const [images, setImages] = useState([]);
+  const [tags, setTags] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -25,6 +26,13 @@ const Add = ({ token }) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
+    // Enforce max 5 images per product
+    const existingCount = images.length;
+    if (existingCount >= 5) {
+      toast.error("Maximum 5 images allowed per product");
+      return;
+    }
+
     setUploading(true);
     try {
       const uploadPromises = files.map(async (file) => {
@@ -37,7 +45,11 @@ const Add = ({ token }) => {
       });
 
       const uploadedImages = await Promise.all(uploadPromises);
-      setImages((prev) => [...prev, ...uploadedImages]);
+      const combined = [...images, ...uploadedImages].slice(0, 5);
+      if (combined.length < images.length + uploadedImages.length) {
+        toast.info("Only first 5 images were kept");
+      }
+      setImages(combined);
       toast.success("Images uploaded successfully");
     } catch (error) {
       console.error(error);
@@ -86,6 +98,7 @@ const Add = ({ token }) => {
           isNewArrival,
           material,
           images,
+          tags: tags.split(",").map(t => t.trim()).filter(Boolean),
         },
         { headers: authHeaders }
       );
@@ -142,13 +155,13 @@ const Add = ({ token }) => {
           </label>
         </div>
         {images.length > 0 && (
-        <div className="mt-4 grid grid-cols-4 gap-3">
+        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {images.map((img, index) => (
             <div key={index} className="relative group">
               <img
                 src={img.url}
                 alt={`Product ${index + 1}`}
-                className="w-full h-24 object-cover rounded-lg"
+                className="w-full h-24 sm:h-28 object-cover rounded-lg"
               />
               <button
                 type="button"
@@ -161,6 +174,18 @@ const Add = ({ token }) => {
           ))}
         </div>
       )}
+      </div>
+      {/* Tags input */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200">
+        <label className="block text-sm font-semibold text-slate-700 mb-2">Tags (comma separated)</label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="e.g., Kundan, Wedding, Bridal"
+          className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#debc65] focus:border-transparent"
+        />
+        <p className="text-xs text-slate-400 mt-2">Tags will appear on product page above price (italic).</p>
       </div>
 
       {/* Product Details */}

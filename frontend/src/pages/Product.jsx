@@ -221,7 +221,12 @@ const Product = () => {
           </div>
 
           <div className="mt-5 flex items-center gap-3">
-            <span className="text-3xl font-semibold text-[#debc65]">{formatPKR(currentPrice)}</span>
+            <div className="flex flex-col">
+              {product.tags?.[0] && (
+                <span className="italic text-sm text-text-muted">{product.tags[0]}</span>
+              )}
+              <span className="text-3xl font-semibold text-[#debc65]">{formatPKR(currentPrice)}</span>
+            </div>
             {hasDiscount && <span className="text-lg text-text-muted line-through">{formatPKR(originalPrice)}</span>}
           </div>
 
