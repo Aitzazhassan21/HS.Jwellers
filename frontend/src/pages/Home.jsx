@@ -953,18 +953,18 @@ const Home = () => {
             <p className="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8 font-inter">
               Subscribe to our newsletter and be the first to know about new arrivals, special offers, and exclusive discounts.
             </p>
-            <form onSubmit={handleNewsletterSubscribe} className="flex gap-3 max-w-md mx-auto">
+            <form onSubmit={handleNewsletterSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="flex-1 rounded-full bg-white/10 border border-[#debc65]/40 px-6 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#debc65] font-inter"
+                className="w-full rounded-full bg-white/10 border border-[#debc65]/40 px-6 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#debc65] font-inter"
               />
               <button 
                 type="submit"
                 disabled={isSubscribing}
-                className="bg-[#debc65] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#C9A84C] transition-colors font-inter disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto bg-[#debc65] text-black px-6 py-3 rounded-full font-semibold hover:bg-[#C9A84C] transition-colors font-inter disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubscribing ? 'Subscribing...' : 'Subscribe'}
               </button>
