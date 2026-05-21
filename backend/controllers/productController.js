@@ -203,7 +203,8 @@ export const getProductBySlug = async (req, res) => {
 };
 
 const CATEGORY_SLUG_ALIASES = {
-  "necklace-and-chain": "necklace",
+  // map legacy/short slugs to current DB slug
+  "necklace": "necklace-and-chain",
 };
 
 const resolveCategorySlug = (slug) => CATEGORY_SLUG_ALIASES[slug] || slug;
